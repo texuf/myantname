@@ -1,1 +1,1 @@
-web: python main.py -db localhost
+web: python main.py

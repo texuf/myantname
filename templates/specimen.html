@@ -1,0 +1,32 @@
+<html>
+<head>
+</head>
+<body>
+    <h2>{{speciesName}}</h2>
+
+    
+    <ul>
+        <li>
+            <p>
+                {% set spec = specimens[0] %}
+                {{spec.meta.kingdom_name}} / {{spec.meta.phylum_name}} / {{spec.meta.class_name}} / {{spec.meta.order_name}} / {{spec.meta.family}} / {{spec.meta.genus}} / {{speciesName}}
+            </p>
+        </li>
+        {% for spec in specimens %}
+            
+            {% if spec.images %}
+                <li>
+                    <p>
+                        {% for img in spec.images|dictsort %}
+                            {% for type in img[1].shot_types|dictsort %}
+                                 <img src="{{ type[1]['img'][3] }}" />
+                            {% endfor %}
+                        {% endfor %}
+                    <p>
+                </li>
+            {% endif %}
+            
+        {% endfor %}
+    </ul>
+</body>
+</html>

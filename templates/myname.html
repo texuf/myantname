@@ -1,0 +1,12 @@
+<html>
+<head>
+</head>
+<body>
+    <h2>Closest to {{myname}}</h2>
+    <ul>
+        {% for name in names %}
+            <li><a href="/species/{{name}}/"> {{name}} </a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

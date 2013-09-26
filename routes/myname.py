@@ -1,7 +1,7 @@
 
 from app import app
-from db import db
-from flask import json, jsonify, redirect, request
+from data.names import names
+from flask import json, jsonify, redirect, render_template, request
 from scripts.levenshtein import levenshtein3
 import urllib2
 
@@ -10,29 +10,14 @@ import urllib2
 @app.route('/<myname>')
 @app.route('/<myname>/')
 def myname(myname):
-
-    res_db = db['species'].find_one({'_id':0})
-    response_data = res_db['data']
-
-    for rd in response_data:
+    for rd in names:
         rd['l2'] = levenshtein3(myname.lower(),rd['species'].lower())
 
-    response_data.sort(key=lambda x:x['l2'], reverse=False)
-
-    '''
-    ret_val = []
-    for r in response_data[0:10]:
-        url = "http://www.antweb.org/api/?rank=species&name=%s" % r['species']
-        req = urllib2.Request(url)
-        response = urllib2.urlopen(req)
-        spec = {'name':r['species']}
-        spec['specimens'] = len(json.loads(response.read()))
-        ret_val.append(spec)
+    names.sort(key=lambda x:x['l2'], reverse=False)
     
-    return jsonify(r=ret_val)
-    '''
-
-    return jsonify(names=[x['species'] for x in response_data[0:20]])
+    return render_template('myname.html', 
+                            myname=myname, 
+                            names=[x['species'] for x in names[0:20]])
 
 
 
