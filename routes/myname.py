@@ -32,7 +32,7 @@ def myname(myname):
     return jsonify(r=ret_val)
     '''
 
-    return jsonify(names=[x['species'] for x in response_data])
+    return jsonify(names=[x['species'] for x in response_data[0:20]])
 
 
 
