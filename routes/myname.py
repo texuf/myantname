@@ -1,24 +1,18 @@
 
 from app import app
+from db import db
 from flask import json, jsonify, redirect, request
 from scripts.levenshtein import levenshtein3
 import urllib2
 
-response_data = None
 
 
 @app.route('/<myname>')
 @app.route('/<myname>/')
 def myname(myname):
-    global response_data
-    
-    if response_data is None:
 
-        url = "http://www.antweb.org/api/?rank=species"
-        req = urllib2.Request(url)
-        response = urllib2.urlopen(req)
-        
-        response_data = json.loads(response.read())
+    res_db = db['species'].find_one({'_id':0})
+    response_data = res_db['data']
 
     for rd in response_data:
         rd['l2'] = levenshtein3(myname.lower(),rd['species'].lower())
