@@ -19,7 +19,7 @@ def myname(myname):
 
     response_data.sort(key=lambda x:x['l2'], reverse=False)
 
-
+    '''
     ret_val = []
     for r in response_data[0:10]:
         url = "http://www.antweb.org/api/?rank=species&name=%s" % r['species']
@@ -28,8 +28,11 @@ def myname(myname):
         spec = {'name':r['species']}
         spec['specimens'] = len(json.loads(response.read()))
         ret_val.append(spec)
- 
+    
     return jsonify(r=ret_val)
+    '''
+
+    return jsonify(names=[x['species'] for x in response_data])
 
 
 
