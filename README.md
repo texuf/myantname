@@ -1,7 +1,7 @@
 myantname
 ==========
 
-Implementation of the antweb api
+Implementation of the antweb api at http://www.antweb.org/api
 
 
 Prerequisits
